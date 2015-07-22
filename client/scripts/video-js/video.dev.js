@@ -2211,6 +2211,12 @@ vjs.Slider.prototype.onKeyPress = function(event){
   } else if (event.which == 39 || event.which == 38) { // Right Arrow and Up Arrow
     event.preventDefault();
     this.stepForward();
+  } else if (event.which == 36) { // Home
+    event.preventDefault();
+    this.goToMinValue();
+  } else if (event.which == 35) { // End
+    event.preventDefault();
+    this.goToMaxValue();
   }
 };
 
@@ -4769,6 +4775,13 @@ vjs.SeekBar.prototype.stepBack = function(){
   this.player_.currentTime(this.player_.currentTime() - 5); // more quickly rewind for keyboard-only users
 };
 
+vjs.SeekBar.prototype.goToMinValue = function(){
+  this.player_.currentTime(0);  // more quickly go to start for keyboard-only users
+};
+
+vjs.SeekBar.prototype.goToMaxValue = function(){
+  this.player_.currentTime(this.player_.duration()); // more quickly go to end for keyboard-only users
+};
 
 /**
  * Shows load progres
@@ -4957,6 +4970,14 @@ vjs.VolumeBar.prototype.stepForward = function(){
 
 vjs.VolumeBar.prototype.stepBack = function(){
   this.player_.volume(this.player_.volume() - 0.1);
+};
+
+vjs.VolumeBar.prototype.goToMinValue = function(){
+  this.player_.volume(0);
+};
+
+vjs.VolumeBar.prototype.goToMaxValue = function(){
+  this.player_.volume(1);
 };
 
 /**
